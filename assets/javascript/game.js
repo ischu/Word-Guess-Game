@@ -15,6 +15,10 @@ function winCounter() {
         console.log("you lose");
     }
 };
+
+function winButt(){
+    youWin = true;
+}
 // Guess counter
 var guessCount = 15;
 function guessCounter() {
@@ -35,7 +39,7 @@ document.onkeyup = function (_event) {
         var theLetter = _event.key;
         console.log("you pressed " + theLetter);
         // check that letter has not been guessed yet
-        if (!letterArray.includes(theLetter)) {
+        if (!letterArray.includes(" " + theLetter)) {
             // reduce guess counter
             guessCounter();
             // push letter to guessed letters array (with spacing)
