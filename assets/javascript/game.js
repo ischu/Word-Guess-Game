@@ -28,18 +28,24 @@ function guessCounter() {
 var letterArray = [];
 
 document.onkeyup = function (_event) {
-    // checks if key pressed is a letter
+    // check if key pressed is a letter
+
     if (/[a-z]/.test(_event.key)) {
         // sets theLetter to the pressed key
         var theLetter = _event.key;
         console.log("you pressed " + theLetter);
-        // reduces guess counter
-        guessCounter();
-        // add theLetter to guessed letters array
-        letterArray.push(theLetter);
-        // adds letter to 
-        document.getElementById("guessLett").innerHTML = letterArray;
-        return theLetter;
+        // check that letter has not been guessed yet
+        if (!letterArray.includes(theLetter)) {
+            // reduce guess counter
+            guessCounter();
+            // push letter to guessed letters array (with spacing)
+            // maybe add .toUpperCase?
+            letterArray.push(" " + theLetter);
+            console.log(letterArray);
+            // adds letter to guessed letters section
+            document.getElementById("guessLett").innerHTML = letterArray;
+            return letterArray;
+        }
     }
     else {
         alert("press a letter key!");
