@@ -1,0 +1,40 @@
+body{
+    background: #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    text-align: center;
+    margin: 5vh auto 3vh auto;
+}
+
+/* Organizing columns */
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-basis: content;
+}
+
+main div{
+    color: blue;
+    border: solid black 1px;
+}
+/* left column */
+main div:nth-child(1){
+    background: red;
+    width: 40vw;
+}
+/* right column */
+main div:nth-child(2){
+    background: green;
+    width: 40vw;
+}
+/* elements to be javascripted */
+#winNum{}
+#theWord{}
+#guessNum{}
+#guessedLetters{
+    height: 20vh;
+}
