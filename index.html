@@ -34,11 +34,11 @@
             </h3>
             <!-- Wins Count -->
             <h3>
-                Wins
+                Wins:
+                <span id="winNum">
+                    0
+                </span>
             </h3>
-            <span id="winNum">
-                0
-            </span>
             <!-- Current Word -->
             <h3>
                 Current Word
@@ -49,17 +49,19 @@
             <!-- Number of Guesses Remaining -->
             <h3>
                 Number of Guesses Remaining:
+                <span id="guessNum">
+                    15
+                </span>
             </h3>
-            <span id="guessNum">
-                15
-            </span>
+
             <!-- Letters Already Guessed -->
             <h3>
                 Letters Already Guessed
+                <span id="guessLett">
+                    
+                </span>
             </h3>
-            <h3 id="guessedLetters">
-                a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
-            </h3>
+
             <button onclick=guessCounter()>Guess</button>
             <button onclick=winCounter()>Win</button>
         </div>
