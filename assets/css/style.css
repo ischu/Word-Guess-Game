@@ -32,9 +32,11 @@ main div:nth-child(2){
     width: 40vw;
 }
 /* elements to be javascripted */
-#winNum{}
-#theWord{}
-#guessNum{}
-#guessLett{
-    
+/* #winNum{} */
+#secretWord{
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
 }
+/* #guessNum{} */
+/* #guessLett{} */
