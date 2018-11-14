@@ -40,21 +40,21 @@ function blankSetter() {
 
 function resetGame() {
     // resets guess counter
-    guessCount=15;
+    guessCount = 15;
     // picks new word
     wordSelector();
     // sets appropriate number of blanks
     blankSetter();
     // resets 
     // resets placeholder text in guessed letters section
-    document.getElementById("guessLett").innerHTML="Guess a Letter!";
+    document.getElementById("guessLett").innerHTML = "Guess a Letter!";
 }
 
 // function to reveal secret word, img, etc.
 
 function revealSecret() {
     // reveals word
-    document.getElementById("secretWord").innerHTML=theWord;
+    document.getElementById("secretWord").innerHTML = theWord;
     // reveals img
     // plays sound
 }
@@ -86,54 +86,58 @@ function winButt() {
 // Guess counter
 var guessCount = 15;
 function guessCounter() {
-    // if guess counter is above zero
-    if (guessCount > 0) {
         // reduce counter by 1
         guessCount--;
         console.log(guessCount);
         // write guess counter value
         document.getElementById("guessNum").innerHTML = guessCount;
         return guessCount;
-    }
-    else if (guessCount === 0) {
-        // resets game
-        resetGame();
-        // reveals answer
-        revealSecret();
-        // displays "failure banner"
-        document.getElementById("banner").innerHTML="YOU LOSE";
-    }
 };
 
 // key press stuff
 
 var letterArray = [];
-var firstLetter = true;
+resetTime = false;
 
 document.onkeyup = function (_event) {
+    // check if it's time to reset
+    if(resetTime){
+        resetGame();
+        resetTime=false;
+        letterArray=[];
+    }
     // check if key pressed is a letter key
-    if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
+    else if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
         // sets theLetter to the pressed key
         var theLetter = _event.key;
         console.log("you pressed " + theLetter);
 
-        // check that letter has not been guessed yet
-        if (!letterArray.includes(" " + theLetter)) {
-            // reduce guess counter
-            guessCounter();
-            // push letter to guessed letters array (with spacing)
-            // maybe add .toUpperCase?
-            letterArray.push(" " + theLetter);
-            console.log(letterArray);
-            // adds letter to guessed letters section
-            document.getElementById("guessLett").innerText = letterArray;
-            return theLetter;
+        // checks if game is lost
+        if (guessCount === 0) {
+            // if it is, show answer, alert user to loss, and prep for reset
+            revealSecret();
+            document.getElementById("banner").innerHTML = "YOU LOSE";
+            resetTime = true;
+            return resetTime;
+            // resetGame();
         }
         else {
-            alert("YOU ALREADY GUESSED " + theLetter.toUpperCase() + "!")
-        };
-        // checks if theLetter is in theWord
-        // for ()
+            // check that letter has not been guessed yet
+            if (!letterArray.includes(" " + theLetter)) {
+                // reduce guess counter
+                guessCounter();
+                // push letter to guessed letters array (with spacing)
+                // maybe add .toUpperCase?
+                letterArray.push(" " + theLetter);
+                console.log(letterArray);
+                // adds letter to guessed letters section
+                document.getElementById("guessLett").innerText = letterArray;
+                return theLetter;
+            }
+            else {
+                alert("YOU ALREADY GUESSED " + theLetter.toUpperCase() + "!")
+            };
+        }
     }
     else {
         alert("PRESS A LETTER KEY!");
