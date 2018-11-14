@@ -13,11 +13,11 @@
     <h1>WORD GUESS</h1>
     <h2>Animals!</h2>
 </Header>
-
-<body>
+<!-- resetGame sets up the game -->
+<body onload=resetGame()>
     <!-- Success or Failure Text -->
     <header>
-        <span>Success!</span>
+        <span id="banner">|</span>
     </header>
     <!-- game section -->
     <main>
@@ -45,6 +45,7 @@
             </h3>
             <!-- The Word Itself -->
             <div id="secretWord">
+                _______
             </div>
             <!-- Number of Guesses Remaining -->
             <h3>
@@ -59,14 +60,14 @@
                 Letters Already Guessed:
                 <br>
                 <span id="guessLett">
-                    
+                    Guess a Letter!
                 </span>
             </h3>
 
             <button onclick=guessCounter()>Guess</button>
             <button onclick=winButt()>Win?</button>
             <button onclick=winCounter()>WIN</button>
-            <button onclick=wordSelect()>word</button>
+            <button onclick=wordSelector()>word</button>
             <button onclick=blankSetter()>set</button>
 
         </div>
