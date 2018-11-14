@@ -86,12 +86,29 @@ function winButt() {
 // Guess counter
 var guessCount = 15;
 function guessCounter() {
+    // if guesses remain, reduce number of guesses remaining
+    if (guessCount > 1) {
         // reduce counter by 1
         guessCount--;
         console.log(guessCount);
         // write guess counter value
         document.getElementById("guessNum").innerHTML = guessCount;
         return guessCount;
+    }
+    // if no guesses left
+    else {
+        // reduce counter to zero
+        guessCount--;
+        console.log(guessCount);
+        // write guess counter value
+        document.getElementById("guessNum").innerHTML = guessCount;
+        // show answer, alert user to loss, and prep for reset
+        revealSecret();
+        document.getElementById("banner").innerHTML = "YOU LOSE";
+        document.getElementById("playAgain").innerHTML = "play again!";
+        resetTime = true;
+        return resetTime;
+    }
 };
 
 // key press stuff
@@ -100,28 +117,15 @@ var letterArray = [];
 resetTime = false;
 
 document.onkeyup = function (_event) {
-    // check if it's time to reset
-    if(resetTime){
-        resetGame();
-        resetTime=false;
-        letterArray=[];
-    }
-    // check if key pressed is a letter key
-    else if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
-        // sets theLetter to the pressed key
-        var theLetter = _event.key;
-        console.log("you pressed " + theLetter);
+    // check if resetting
+    if (!resetTime) {
 
-        // checks if game is lost
-        if (guessCount === 0) {
-            // if it is, show answer, alert user to loss, and prep for reset
-            revealSecret();
-            document.getElementById("banner").innerHTML = "YOU LOSE";
-            resetTime = true;
-            return resetTime;
-            // resetGame();
-        }
-        else {
+        // check if key pressed is a letter key
+        if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
+            // sets theLetter to the pressed key
+            var theLetter = _event.key;
+            console.log("you pressed " + theLetter);
+
             // check that letter has not been guessed yet
             if (!letterArray.includes(" " + theLetter)) {
                 // reduce guess counter
@@ -134,14 +138,22 @@ document.onkeyup = function (_event) {
                 document.getElementById("guessLett").innerText = letterArray;
                 return theLetter;
             }
+            // if letter has been guessed
             else {
                 alert("YOU ALREADY GUESSED " + theLetter.toUpperCase() + "!")
             };
         }
+        // if not a letter key
+        else {
+            alert("PRESS A LETTER KEY!");
+        };
     }
+    // if resetting 
     else {
-        alert("PRESS A LETTER KEY!");
-    }
+            resetGame();
+            resetTime = false;
+            letterArray = [];
+        };
 };
 
 
