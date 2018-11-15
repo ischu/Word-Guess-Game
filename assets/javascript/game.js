@@ -5,10 +5,7 @@
 var animalArray = ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutang", "crocodile", "aligator",
     "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
 
-// Variables... not really declared yet
-// var theWord;
-// var wordLength = theWord.length; 
-
+// CHANGE THIS SO IT WON'T PICK THE SAME ANIMAL TWICE!
 // Selects a word from the array and returns it
 function wordSelector() {
     // randomly selects an animal word from the array and assigns it to theWord
@@ -21,7 +18,7 @@ function wordSelector() {
 function blankSetter() {
     // number of blanks equals number of letters
     blankNumber = theWord.length;
-    console.log("The secret word is " + blankNumber + " letters long.");
+    console.log(theWord + " is " + blankNumber + " letters long.");
     // sets array of blanks to be displayed on screen
     blankSet = ["_"];
     var i = 1;
@@ -31,14 +28,19 @@ function blankSetter() {
         i++;
     }
     // writes blankSet on screen as string with spaces instead of commas
-    secretWordWrite(blankSet);
+    spacedWrite("secretWord", blankSet);
     console.log(blankSet);
     return blankSet;
 }
 
 // function for properly writing blankset array as string with spaces
-function secretWordWrite(x) {
-    document.getElementById("secretWord").innerHTML = x.toString().replace(/,/g, " ");
+function spacedWrite(x, y) {
+    document.getElementById(x).innerHTML = y.toString().replace(/,/g, " ");
+}
+
+// function for replacing text in HTML elements (makes code look nicer)
+function justWrite(x, y) {
+    document.getElementById(x).innerHTML = y;
 }
 
 // function to reset game after win/loss
@@ -51,7 +53,8 @@ function resetGame() {
     wordSelector();
     // sets appropriate number of blanks
     blankSetter();
-    // resets 
+    // clears letterArray (guessed letters)
+    letterArray = [];
     // resets placeholder text in guessed letters section
     document.getElementById("guessLett").innerHTML = "Guess a Letter!";
     document.getElementById("playAgain").innerHTML = "guess a letter!";
@@ -70,27 +73,25 @@ function revealSecret() {
 var winCount = 0;
 var youWin = false;
 
-function winCounter() {
-    // checks if user won equals true
-    if (youWin) {
-        // adds a win
+// check if blankSet is equivalent to theWord
+function winTime() {
+    if (blankSet.join("") === theWord) {
+        //adds 1 to win count
         winCount++;
-        console.log(winCount);
-        // resets win to false
-        youWin = false;
         // updates win counter
         document.getElementById("winNum").innerHTML = winCount;
-    }
-    // Will probably need to change this to an else if (youLose) type thing
-    else {
-        console.log("you lose");
+        console.log(winCount);
+        // Sets banner to alert player of win
+        document.getElementById("banner").innerHTML = "YOU WIN!";
+        // reveals secret img, sound, etc. (NOT YET FULLY IMPLEMENTED)
+        revealSecret();
+        //preps game for reset
+        document.getElementById("playAgain").innerHTML = "play again!";
+        resetTime = true;
+        return resetTime;
     }
 };
 
-// Delete
-function winButt() {
-    youWin = true;
-}
 // Guess counter
 var guessCount = 15;
 function guessCounter() {
@@ -136,17 +137,18 @@ document.onkeyup = function (_event) {
             console.log("you pressed " + theLetter);
 
             // check that letter has not been guessed yet
-            if (!letterArray.includes(" " + theLetter)) {
-                // reduce guess counter
-                guessCounter();
-                // push letter to guessed letters array (with spacing)
-                // maybe add .toUpperCase?
-                letterArray.push(" " + theLetter);
+            if (!letterArray.includes(theLetter.toUpperCase())) {
+                // pushes upper-case version of letter to guessed letters array
+                letterArray.push(theLetter.toUpperCase());
                 console.log(letterArray);
-                // adds letter to guessed letters section
-                document.getElementById("guessLett").innerText = letterArray;
-                // checks if letter is in word and places it in corressponding blank if it is
-                letterReplace()
+                // adds letter to guessed letters section with spacing and no commas
+                spacedWrite("guessLett", letterArray);
+                // reduces guess counter
+                guessCounter();
+                // checks if letter is in word and places it in corresponding blank if it is
+                letterReplace();
+                // checks if player has won game and intiates win sequence if yes
+                winTime();
                 // log and return theLetter
                 console.log(theLetter);
                 return theLetter
@@ -178,12 +180,7 @@ function letterReplace() {
             blankSet[i] = theLetter;
         }
     }
-    secretWordWrite(blankSet);
+    spacedWrite("secretWord", blankSet);
     console.log(blankSet);
     return blankSet;
-}
-
-// check if blankSet has any blanks left- if no set youWin to true & resetTime to true
-function winTime(){
-
 }
