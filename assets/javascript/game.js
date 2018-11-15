@@ -41,7 +41,7 @@ function secretWordWrite(x) {
     document.getElementById("secretWord").innerHTML = x.toString().replace(/,/g, " ");
 }
 
-// function to reset game on win/loss
+// function to reset game after win/loss
 
 function resetGame() {
     // resets guess counter
@@ -145,8 +145,11 @@ document.onkeyup = function (_event) {
                 console.log(letterArray);
                 // adds letter to guessed letters section
                 document.getElementById("guessLett").innerText = letterArray;
+                // checks if letter is in word and places it in corressponding blank if it is
+                letterReplace()
+                // log and return theLetter
                 console.log(theLetter);
-                // returns theLetter as a string
+                return theLetter
             }
             // if letter has been guessed- obnoxious alert!
             else {
@@ -164,25 +167,23 @@ document.onkeyup = function (_event) {
         resetTime = false;
         letterArray = [];
     };
-    return theLetter
 };
+
 // letter replace function
 function letterReplace() {
     for (var i = 0; i < theWord.length; i++) {
-        // finds where the letter is in the word
-        if (theLetter === theWord[i]) {
-            // replace correct blank(s) with theLetter
+        // finds where the letter matches a character in the word and the corresponding blank in blankSet
+        if (theLetter === theWord[i] && blankSet[i] === "_") {
+            // replace correct blank with theLetter
             blankSet[i] = theLetter;
-            secretWordWrite(blankSet);
-            console.log(blankSet);
-            return blankSet;
         }
-
     }
+    secretWordWrite(blankSet);
+    console.log(blankSet);
+    return blankSet;
 }
 
 // check if blankSet has any blanks left- if no set youWin to true & resetTime to true
+function winTime(){
 
-function LR() {
-    console.log(theLetter);
 }
