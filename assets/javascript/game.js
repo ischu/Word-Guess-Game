@@ -1,4 +1,5 @@
 // remember to console.log!
+// at this point I probably can organize all of this into one object
 
 // Word Selection Section
 
@@ -43,7 +44,8 @@ function justWrite(x, y) {
     document.getElementById(x).innerHTML = y;
 }
 
-// function to reset game after win/loss
+// Reset game after win/loss
+var resetTime = false;
 
 function resetGame() {
     // resets guess counter
@@ -55,23 +57,25 @@ function resetGame() {
     blankSetter();
     // clears letterArray (guessed letters)
     letterArray = [];
-    // resets placeholder text in guessed letters section
+    // resets text in guessed letters section and instructions
     justWrite("guessLett", "Guess a Letter!");
     justWrite("playAgain", "guess a letter!");
+    // Game has been reset- the time to reset has passed
+    resetTime = false;
 }
 
 // function to reveal secret word, img, etc. on win/loss
 
 function revealSecret() {
     // reveals word
-    justWrite("secretWord", theWord);
+    blankSet = theWord;
+    spacedWrite("secretWord", blankSet);
     // reveals img
     // plays sound
 }
 
 // Wins counter
 var winCount = 0;
-var youWin = false;
 
 // check if blankSet is equivalent to theWord
 function winTime() {
@@ -95,22 +99,13 @@ function winTime() {
 // Guess counter
 var guessCount = 15;
 function guessCounter() {
-    // if guesses remain, reduce number of guesses remaining
-    if (guessCount > 1) {
-        // reduce counter by 1
-        guessCount--;
-        console.log(guessCount);
-        // write guess counter value
-        justWrite("guessNum", guessCount);
-        return guessCount;
-    }
-    // if no guesses left
-    else {
-        // reduce counter to zero
-        guessCount--;
-        console.log(guessCount);
-        // write guess counter value
-        justWrite("guessNum", guessCount);
+    // reduce counter by 1
+    guessCount--;
+    console.log(guessCount);
+    // write guess counter value
+    justWrite("guessNum", guessCount);
+    // check if out of guesses--> lose sequence
+    if (guessCount < 1) {
         // show answer, alert user to loss, and prep for reset
         revealSecret();
         justWrite("banner", "you lose.");
@@ -121,19 +116,14 @@ function guessCounter() {
 };
 
 // key press stuff
-
-var letterArray = [];
-resetTime = false;
-var theLetter;
-
-document.onkeyup = function (_event) {
+document.onkeyup = function (event) {
     // check if resetting
     if (!resetTime) {
 
         // check if key pressed is a letter key
-        if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
+        if (/[a-z]/.test(event.key) && event.key.length === 1) {
             // sets theLetter to the pressed key
-            theLetter = _event.key;
+            theLetter = event.key;
             console.log("you pressed " + theLetter);
 
             // check that letter has not been guessed yet
@@ -166,8 +156,6 @@ document.onkeyup = function (_event) {
     // if resetting 
     else {
         resetGame();
-        resetTime = false;
-        letterArray = [];
     };
 };
 
@@ -180,6 +168,7 @@ function letterReplace() {
             blankSet[i] = theLetter;
         }
     }
+    // write, logs, and returns updated set of blanks
     spacedWrite("secretWord", blankSet);
     console.log(blankSet);
     return blankSet;
