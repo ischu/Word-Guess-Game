@@ -23,17 +23,22 @@ function blankSetter() {
     blankNumber = theWord.length;
     console.log("The secret word is " + blankNumber + " letters long.");
     // sets array of blanks to be displayed on screen
-    var blankSet = " _";
+    blankSet = ["_"];
     var i = 1;
     // adds blanks until blankSet is correct length
     while (i < blankNumber) {
-        blankSet = blankSet + " _";
+        blankSet.push("_");
         i++;
     }
-    // writes blankSet on screen
-    document.getElementById("secretWord").innerHTML = blankSet;
+    // writes blankSet on screen as string with spaces instead of commas
+    secretWordWrite(blankSet);
     console.log(blankSet);
     return blankSet;
+}
+
+// function for properly writing blankset array as string with spaces
+function secretWordWrite(x) {
+    document.getElementById("secretWord").innerHTML = x.toString().replace(/,/g, " ");
 }
 
 // function to reset game on win/loss
@@ -41,6 +46,7 @@ function blankSetter() {
 function resetGame() {
     // resets guess counter
     guessCount = 15;
+    document.getElementById("guessNum").innerHTML = guessCount;
     // picks new word
     wordSelector();
     // sets appropriate number of blanks
@@ -48,9 +54,10 @@ function resetGame() {
     // resets 
     // resets placeholder text in guessed letters section
     document.getElementById("guessLett").innerHTML = "Guess a Letter!";
+    document.getElementById("playAgain").innerHTML = "guess a letter!";
 }
 
-// function to reveal secret word, img, etc.
+// function to reveal secret word, img, etc. on win/loss
 
 function revealSecret() {
     // reveals word
@@ -80,6 +87,7 @@ function winCounter() {
     }
 };
 
+// Delete
 function winButt() {
     youWin = true;
 }
@@ -115,6 +123,7 @@ function guessCounter() {
 
 var letterArray = [];
 resetTime = false;
+var theLetter;
 
 document.onkeyup = function (_event) {
     // check if resetting
@@ -123,7 +132,7 @@ document.onkeyup = function (_event) {
         // check if key pressed is a letter key
         if (/[a-z]/.test(_event.key) && _event.key.length === 1) {
             // sets theLetter to the pressed key
-            var theLetter = _event.key;
+            theLetter = _event.key;
             console.log("you pressed " + theLetter);
 
             // check that letter has not been guessed yet
@@ -136,25 +145,44 @@ document.onkeyup = function (_event) {
                 console.log(letterArray);
                 // adds letter to guessed letters section
                 document.getElementById("guessLett").innerText = letterArray;
-                return theLetter;
+                console.log(theLetter);
+                // returns theLetter as a string
             }
-            // if letter has been guessed
+            // if letter has been guessed- obnoxious alert!
             else {
                 alert("YOU ALREADY GUESSED " + theLetter.toUpperCase() + "!")
             };
         }
-        // if not a letter key
+        // if not a letter key- obnoxious alert!
         else {
             alert("PRESS A LETTER KEY!");
         };
     }
     // if resetting 
     else {
-            resetGame();
-            resetTime = false;
-            letterArray = [];
-        };
+        resetGame();
+        resetTime = false;
+        letterArray = [];
+    };
+    return theLetter
 };
+// letter replace function
+function letterReplace() {
+    for (var i = 0; i < theWord.length; i++) {
+        // finds where the letter is in the word
+        if (theLetter === theWord[i]) {
+            // replace correct blank(s) with theLetter
+            blankSet[i] = theLetter;
+            secretWordWrite(blankSet);
+            console.log(blankSet);
+            return blankSet;
+        }
 
+    }
+}
 
+// check if blankSet has any blanks left- if no set youWin to true & resetTime to true
 
+function LR() {
+    console.log(theLetter);
+}
