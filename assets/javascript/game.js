@@ -48,7 +48,7 @@ function justWrite(x, y) {
 function resetGame() {
     // resets guess counter
     guessCount = 15;
-    document.getElementById("guessNum").innerHTML = guessCount;
+    justWrite("guessNum", guessCount);
     // picks new word
     wordSelector();
     // sets appropriate number of blanks
@@ -56,15 +56,15 @@ function resetGame() {
     // clears letterArray (guessed letters)
     letterArray = [];
     // resets placeholder text in guessed letters section
-    document.getElementById("guessLett").innerHTML = "Guess a Letter!";
-    document.getElementById("playAgain").innerHTML = "guess a letter!";
+    justWrite("guessLett", "Guess a Letter!");
+    justWrite("playAgain", "guess a letter!");
 }
 
 // function to reveal secret word, img, etc. on win/loss
 
 function revealSecret() {
     // reveals word
-    document.getElementById("secretWord").innerHTML = theWord;
+    justWrite("secretWord", theWord);
     // reveals img
     // plays sound
 }
@@ -79,14 +79,14 @@ function winTime() {
         //adds 1 to win count
         winCount++;
         // updates win counter
-        document.getElementById("winNum").innerHTML = winCount;
+        justWrite("winNum", winCount);
         console.log(winCount);
         // Sets banner to alert player of win
-        document.getElementById("banner").innerHTML = "YOU WIN!";
+        justWrite("banner", "YOU WIN!!!");
         // reveals secret img, sound, etc. (NOT YET FULLY IMPLEMENTED)
         revealSecret();
         //preps game for reset
-        document.getElementById("playAgain").innerHTML = "play again!";
+        justWrite("playAgain", "play again!");
         resetTime = true;
         return resetTime;
     }
@@ -101,7 +101,7 @@ function guessCounter() {
         guessCount--;
         console.log(guessCount);
         // write guess counter value
-        document.getElementById("guessNum").innerHTML = guessCount;
+        justWrite("guessNum", guessCount);
         return guessCount;
     }
     // if no guesses left
@@ -110,11 +110,11 @@ function guessCounter() {
         guessCount--;
         console.log(guessCount);
         // write guess counter value
-        document.getElementById("guessNum").innerHTML = guessCount;
+        justWrite("guessNum", guessCount);
         // show answer, alert user to loss, and prep for reset
         revealSecret();
-        document.getElementById("banner").innerHTML = "YOU LOSE";
-        document.getElementById("playAgain").innerHTML = "play again!";
+        justWrite("banner", "you lose.");
+        justWrite("playAgain", "play again!");;
         resetTime = true;
         return resetTime;
     }
