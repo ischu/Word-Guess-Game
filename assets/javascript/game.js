@@ -5,14 +5,22 @@
 
 var animalArray = ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutang", "crocodile", "aligator",
     "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
-
+// by changing this, game can select different categories
+var chosenArray = animalArray;
 // CHANGE THIS SO IT WON'T PICK THE SAME ANIMAL TWICE!
 // Selects a word from the array and returns it
-function wordSelector() {
+function wordSelector(array) {
     // randomly selects an animal word from the array and assigns it to theWord
-    theWord = animalArray[Math.floor(Math.random() * animalArray.length)];
+    theWord = array[Math.floor(Math.random() * array.length)];
+    // removes value from array
+    for (i=0; i<array.length; i++){
+        if (theWord===array[i]){
+            array.splice(i, 1);
+        }
+    }
     console.log("The secret word is " + theWord);
-    return theWord;
+    console.log(array);
+    // return theWord;
 }
 
 // sets the amount of spaces displayed to match length of the word
@@ -36,12 +44,12 @@ function blankSetter() {
 
 // function for properly writing blankset array as string with spaces
 function spacedWrite(x, y) {
-    document.getElementById(x).innerHTML = y.toString().replace(/,/g, " ");
+    document.getElementById(x).textContent = y.toString().replace(/,/g, " ");
 }
 
 // function for replacing text in HTML elements (makes code look nicer)
 function justWrite(x, y) {
-    document.getElementById(x).innerHTML = y;
+    document.getElementById(x).textContent = y;
 }
 
 // Reset game after win/loss
@@ -52,7 +60,7 @@ function resetGame() {
     guessCount = 15;
     justWrite("guessNum", guessCount);
     // picks new word
-    wordSelector();
+    wordSelector(chosenArray);
     // sets appropriate number of blanks
     blankSetter();
     // clears letterArray (guessed letters)
