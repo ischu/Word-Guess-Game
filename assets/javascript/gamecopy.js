@@ -76,8 +76,7 @@ function resetGame() {
 
 function revealSecret() {
     // reveals word
-    blankSet = theWord;
-    spacedWrite("secretWord", blankSet);
+    justWrite("secretWord", theWord);
     // reveals img
     // plays sound
 }

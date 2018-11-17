@@ -3,22 +3,26 @@
 var game = {
     winCount: 0,
     resetTime: false,
-    animalArray: ["dog", "cat", "bird"],
+    animalArray : ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutang", "crocodile", "aligator",
+    "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"],
+    petArray: ["dog", "cat", "bird"],
+    bobArray: ["bob", "rob", "bobby"],
     // chooseArray : function (array) {return array},
     // functions for document...ById stuff
-    spacedWrite: function (x, y) {
-        document.getElementById(x).textContent = y.toString().replace(/,/g, " ");
+    spacedWrite: function (ID, text) {
+        document.getElementById(ID).textContent = text.toString().replace(/,/g, " ");
     },
-    justWrite: function (x, y) {
-        document.getElementById(x).textContent = y;
+    justWrite: function (ID, text) {
+        document.getElementById(ID).textContent = text;
     },
     // function which resets game for play/replay
-    resetGame: function () {
+    // trying to add the ability to swap out arrays
+    resetGame: function (array) {
         // resets guess counter
         guessCount = 15;
         this.justWrite("guessNum", guessCount);
         // picks new word
-        this.wordSelector(this.animalArray);
+        this.wordSelector(array);
         // sets appropriate number of blanks
         this.blankSetter();
         // clears letterArray (guessed letters)
@@ -163,6 +167,6 @@ document.onkeyup = function (event) {
     }
     // if resetting 
     else {
-        game.resetGame();
+        game.resetGame(game.animalArray);
     };
 };

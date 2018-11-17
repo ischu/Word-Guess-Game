@@ -7,41 +7,45 @@
     <title>WORD GUESS!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <script src="assets/javascript/game.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=ABeeZee|Allerta+Stencil|Anton|Archivo|Archivo+Black|Kumar+One|Monoton|Russo+One|VT323|"
+        rel="stylesheet">
+
 </head>
-<Header>
-    <h1>WORD GUESS</h1>
-    <h2>Animals!</h2>
-</Header>
+
 <!-- resetGame sets up the game -->
-<body onload=game.resetGame()>
+
+<body onload=game.resetGame(game.animalArray)>
+    <Header>
+        <h1>WORD GUESS GAME</h1>
+        <h2>Animals!</h2>
+    </Header>
     <!-- Success or Failure Text -->
-    <header>
-        <span id="banner">|</span>
-    </header>
+    <div id="bannerDiv">
+        <h3 id="banner"></h3>
+    </div>
     <!-- game section -->
     <main>
         <!-- left-hand column -->
         <div>
             <!-- images on victory or failure -->
-            <img src="">
+            <img id="secretImg" src="assets/images/Bird.jpg">
         </div>
         <!-- right-hand column -->
         <div>
             <!-- game info -->
             <!-- should this be hidden except immed. after reset? -->
-            <h3>
-                Press any key to <span id="playAgain">begin!</span>
+            <h3 class="leftMarg">
+                Press any key to <span id="playAgain">guess a letter!</span>
             </h3>
             <!-- Wins Count -->
-            <h3>
+            <h3 class="leftMarg">
                 Wins:
                 <span id="winNum">
                     0
                 </span>
             </h3>
             <!-- Current Word -->
-            <h3>
+            <h3 class="leftMarg">
                 Current Word
             </h3>
             <!-- The Word Itself -->
@@ -49,7 +53,7 @@
                 _ _ _ _ _ _ _
             </div>
             <!-- Number of Guesses Remaining -->
-            <h3>
+            <h3 class="leftMarg">
                 Number of Guesses Remaining:
                 <span id="guessNum">
                     15
@@ -57,7 +61,7 @@
             </h3>
 
             <!-- Letters Already Guessed -->
-            <h3>
+            <h3 class="leftMarg">
                 Letters Already Guessed:
                 <br>
                 <br>
@@ -78,5 +82,6 @@
         </div>
     </main>
 </body>
+<script src="assets/javascript/game.js"></script>
 
 </html>
