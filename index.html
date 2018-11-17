@@ -14,10 +14,13 @@
 
 <!-- resetGame sets up the game -->
 
-<body onload=game.resetGame(game.animalArray)>
+<body onload=game.resetGame(1)>
     <Header>
         <h1>WORD GUESS GAME</h1>
-        <h2>Animals!</h2>
+        <h2>-Animals-</h2>
+        <!-- <h2 onclick=>--Wild Animals-</h2>
+        <h2 onclick=>-Extinct Animals-</h2>
+        <h2 onclick=>-Farm Animals--</h2> -->
     </Header>
     <!-- Success or Failure Text -->
     <div id="bannerDiv">
@@ -26,9 +29,9 @@
     <!-- game section -->
     <main>
         <!-- left-hand column -->
-        <div>
+        <div id="imageDiv">
             <!-- images on victory or failure -->
-            <img id="secretImg" src="assets/images/Bird.jpg">
+            <img id="secretImg" src="">
         </div>
         <!-- right-hand column -->
         <div>
@@ -45,16 +48,16 @@
                 </span>
             </h3>
             <!-- Current Word -->
-            <h3 class="leftMarg">
+            <!-- <h3 class="leftMarg">
                 Current Word
-            </h3>
+            </h3> -->
             <!-- The Word Itself -->
             <div id="secretWord">
                 _ _ _ _ _ _ _
             </div>
             <!-- Number of Guesses Remaining -->
             <h3 class="leftMarg">
-                Number of Guesses Remaining:
+                Guesses Remaining:
                 <span id="guessNum">
                     15
                 </span>
@@ -65,8 +68,8 @@
                 Letters Already Guessed:
                 <br>
                 <br>
-                <span id="guessLett">
-                    Guess a Letter!
+                <span class= "secondText" id="guessLett">
+                    guess a letter!
                 </span>
             </h3>
 

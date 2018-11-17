@@ -3,10 +3,19 @@
 var game = {
     winCount: 0,
     resetTime: false,
-    animalArray : ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutang", "crocodile", "aligator",
+    animalArray : ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
     "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"],
     petArray: ["dog", "cat", "bird"],
-    bobArray: ["bob", "rob", "bobby"],
+    arrayOf: [],
+    setArrayOf: function() {
+        this.arrayOf = [this.animalArray, this.petArray];
+        console.log(this.arrayOf, this.animalArray, this.petArray);
+        return this.arrayOf;
+    },
+    // arrayChooser: function(option){
+    //     array = option;
+    //     return array;
+    // },
     // chooseArray : function (array) {return array},
     // functions for document...ById stuff
     spacedWrite: function (ID, text) {
@@ -17,19 +26,21 @@ var game = {
     },
     // function which resets game for play/replay
     // trying to add the ability to swap out arrays
-    resetGame: function (array) {
+    resetGame: function (n) {
         // resets guess counter
+        this.setArrayOf();
         guessCount = 15;
         this.justWrite("guessNum", guessCount);
         // picks new word
-        this.wordSelector(array);
+        this.wordSelector(this.arrayOf[n]);
+        console.log(this.arrayOf[n]);
         // sets appropriate number of blanks
         this.blankSetter();
         // clears letterArray (guessed letters)
         letterArray = [];
         // resets text in guessed letters section and instructions
-        this.justWrite("guessLett", "Guess a Letter!");
         this.justWrite("playAgain", "guess a letter!");
+        this.justWrite("guessLett", "guess a letter");
         // Game has been reset- the time to reset has passed
         this.resetTime = false;
     },
@@ -37,8 +48,13 @@ var game = {
     revealSecret: function () {
         // reveals word
         blankSet = theWord;
-        this.spacedWrite("secretWord", blankSet);
+        this.justWrite("secretWord", blankSet);
         // reveals img
+        // if (img element doesn't exist)
+        // var imgDiv = document.getElementById("imageDiv");
+        // imgDiv.appendChild(<img/>);
+        // do this every time
+        secretImg.setAttribute( "src", "assets/images/"+theWord+".jpg");
         // plays sound
     },
     // selects a word from the array to be guessed
@@ -127,6 +143,7 @@ var game = {
         }
     },
 };
+console.log(game.arrayOf);
 
 document.onkeyup = function (event) {
     // check if resetting
@@ -167,6 +184,6 @@ document.onkeyup = function (event) {
     }
     // if resetting 
     else {
-        game.resetGame(game.animalArray);
+        game.resetGame(1);
     };
 };
