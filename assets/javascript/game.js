@@ -6,7 +6,11 @@ var game = {
     animalArray : ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
     "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"],
     petArray: ["dog", "cat", "bird"],
+    // array of all "catagory" arrays
     arrayOf: [],
+    // index number of array within arrayOf 
+    n: 0,
+    // sets arrayOf to include all arrays
     setArrayOf: function() {
         this.arrayOf = [this.animalArray, this.petArray];
         console.log(this.arrayOf, this.animalArray, this.petArray);
@@ -143,7 +147,13 @@ var game = {
         }
     },
 };
+
+
 console.log(game.arrayOf);
+
+function chooseArray(m){
+Object.defineProperty(game, "n", {value: m});
+};
 
 document.onkeyup = function (event) {
     // check if resetting
@@ -184,6 +194,6 @@ document.onkeyup = function (event) {
     }
     // if resetting 
     else {
-        game.resetGame(1);
+        game.resetGame(game.n);
     };
 };

@@ -14,10 +14,11 @@
 
 <!-- resetGame sets up the game -->
 
-<body onload=game.resetGame(1)>
+<body onload=game.resetGame(game.n)>
     <Header>
         <h1>WORD GUESS GAME</h1>
-        <h2>-Animals-</h2>
+        <h2 onclick=chooseArray(0),game.resetGame(game.n)>-Animals-</h2>
+        <h2 onclick=chooseArray(1),game.resetGame(game.n)>-PETS-</h2>
         <!-- <h2 onclick=>--Wild Animals-</h2>
         <h2 onclick=>-Extinct Animals-</h2>
         <h2 onclick=>-Farm Animals--</h2> -->
