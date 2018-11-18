@@ -37,7 +37,7 @@ var game = {
         this.justWrite("guessNum", guessCount);
         // picks new word
         this.wordSelector(this.arrayOf[n]);
-        console.log(this.arrayOf[n]);
+            // console.log(this.arrayOf[n]);
         // sets appropriate number of blanks
         this.blankSetter();
         // clears letterArray (guessed letters)
@@ -65,9 +65,16 @@ var game = {
     wordSelector: function (array) {
         // randomly selects an animal word from the array and assigns it to theWord
         theWord = array[Math.floor(Math.random() * array.length)];
-        // removes value from array
+        // words only repeat after entire array has been spent
         for (i = 0; i < array.length; i++) {
-            if (theWord === array[i]) {
+            // resets arrays before empty
+            if (array.length===1){
+                this.animalArray=["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
+                "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
+                this.petArray=["dog", "cat", "bird"];
+            }
+            // removes value from array 
+            else if (theWord === array[i]) {
                 array.splice(i, 1);
             }
         }
@@ -148,9 +155,7 @@ var game = {
     },
 };
 
-
-console.log(game.arrayOf);
-
+// changes the array the word is selected from
 function chooseArray(m){
 Object.defineProperty(game, "n", {value: m});
 };
