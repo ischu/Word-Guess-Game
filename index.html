@@ -16,12 +16,11 @@
 
 <body onload=game.resetGame(game.n)>
     <Header>
-        <h1>WORD GUESS GAME</h1>
-        <h2 onclick=chooseArray(0),game.resetGame(game.n)>-Animals-</h2>
-        <h2 onclick=chooseArray(1),game.resetGame(game.n)>-PETS-</h2>
-        <!-- <h2 onclick=>--Wild Animals-</h2>
-        <h2 onclick=>-Extinct Animals-</h2>
-        <h2 onclick=>-Farm Animals--</h2> -->
+        <h1>ANIMAL GUESS GAME</h1>
+        <h2 onclick=chooseArray(0),game.resetGame(game.n)>-Mammals-</h2>
+        <h2 onclick=chooseArray(1),game.resetGame(game.n)>-Reptiles-</h2>
+        <h2 onclick=chooseArray(2),game.resetGame(game.n)>-Birds-</h2>
+        <h2 onclick=chooseArray(3),game.resetGame(game.n)>-Insects-</h2>
     </Header>
     <!-- Success or Failure Text -->
     <div id="bannerDiv">
@@ -38,8 +37,7 @@
         <!-- right-hand column -->
         <div>
             <!-- game info -->
-            <!-- should this be hidden except immed. after reset? -->
-            <h3 class="leftMarg">
+            <h3 class="leftMarg secondText">
                 Press any key to <span id="playAgain">guess a letter!</span>
             </h3>
             <!-- Wins Count -->

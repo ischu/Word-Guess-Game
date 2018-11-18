@@ -3,17 +3,18 @@
 var game = {
     winCount: 0,
     resetTime: false,
-    animalArray : ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
-    "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"],
-    petArray: ["dog", "cat", "bird"],
+    mammalArray : ["elephant",  "squirrel", "leopard", , "orangutan", "zebra", "gorilla",  "dolphin",  "donkey", "dog", "cat"],
+    reptileArray: ["crocodile", "alligator", "python", "cobra", "tortoise", "iguana", "rattlesnake", "gecko", "chameleon", "skink"],
+    birdArray: ["ostrich", "parrot", "peacock", "flamingo", "toucan", "penguin", "puffin", "oriole", "bobolink", "falcon"],
+    bugArray: ["hornet", "termite", "ant", "bumblebee", "cricket", "grasshopper", "scarab", "housefly", "dragonfly", "gnat"],
     // array of all "catagory" arrays
     arrayOf: [],
-    // index number of array within arrayOf 
+    // index number of array within arrayOf (default is animalArray)
     n: 0,
     // sets arrayOf to include all arrays
     setArrayOf: function() {
-        this.arrayOf = [this.animalArray, this.petArray];
-        console.log(this.arrayOf, this.animalArray, this.petArray);
+        this.arrayOf = [this.mammalArray, this.reptileArray, this.birdArray, this.bugArray];
+        console.log(this.arrayOf, this.mammalArray, this.reptileArray, this.birdArray, this.bugArray);
         return this.arrayOf;
     },
     // arrayChooser: function(option){
