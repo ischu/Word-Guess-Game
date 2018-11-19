@@ -4,7 +4,7 @@ var game = {
     winCount: 0,
     resetTime: false,
     // won: false,
-    mammalArray: ["elephant", "squirrel", "leopard", , "orangutan", "zebra", "gorilla", "dolphin", "donkey", "dog", "cat"],
+    mammalArray: ["elephant", "squirrel", "leopard", "orangutan", "zebra", "gorilla", "dolphin", "donkey", "dog", "cat"],
     reptileArray: ["crocodile", "alligator", "python", "cobra", "tortoise", "iguana", "rattlesnake", "gecko", "chameleon", "skink"],
     birdArray: ["ostrich", "parrot", "peacock", "flamingo", "toucan", "penguin", "puffin", "oriole", "bobolink", "falcon"],
     bugArray: ["hornet", "termite", "ant", "bumblebee", "cricket", "grasshopper", "scarab", "housefly", "dragonfly", "gnat"],
@@ -18,11 +18,6 @@ var game = {
         console.log(this.arrayOf, this.mammalArray, this.reptileArray, this.birdArray, this.bugArray);
         return this.arrayOf;
     },
-    // arrayChooser: function(option){
-    //     array = option;
-    //     return array;
-    // },
-    // chooseArray : function (array) {return array},
     // functions for document...ById stuff
     spacedWrite: function (ID, text) {
         document.getElementById(ID).textContent = text.toString().replace(/,/g, " ");
@@ -49,6 +44,7 @@ var game = {
         // resets text in guessed letters section and instructions
         this.justWrite("playAgain", "guess a letter!");
         this.justWrite("guessLett", "guess a letter");
+        instructions.setAttribute("class", "secondText leftMarg ");
         // Game has been reset- the time to reset has passed
         this.resetTime = false;
     },
@@ -57,11 +53,10 @@ var game = {
         // reveals word
         blankSet = theWord;
         this.justWrite("secretWord", blankSet);
+        // highlights instructions to play again
+        this.justWrite("playAgain", "play again!");
+        instructions.setAttribute("class", "highlightText leftMarg")
         // reveals img
-        // if (img element doesn't exist)
-        // var imgDiv = document.getElementById("imageDiv");
-        // imgDiv.appendChild(<img/>);
-        // do this every time
         secretImg.setAttribute("src", "assets/images/" + theWord + ".jpg");
         // plays sound
     },
@@ -73,9 +68,10 @@ var game = {
         for (i = 0; i < array.length; i++) {
             // resets arrays before empty
             if (array.length === 1) {
-                this.animalArray = ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
-                    "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
-                this.petArray = ["dog", "cat", "bird"];
+                this.mammalArray= ["elephant", "squirrel", "leopard", "orangutan", "zebra", "gorilla", "dolphin", "donkey", "dog", "cat"]
+                this.reptileArray= ["crocodile", "alligator", "python", "cobra", "tortoise", "iguana", "rattlesnake", "gecko", "chameleon", "skink"]
+                this.birdArray= ["ostrich", "parrot", "peacock", "flamingo", "toucan", "penguin", "puffin", "oriole", "bobolink", "falcon"]
+                this.bugArray= ["hornet", "termite", "ant", "bumblebee", "cricket", "grasshopper", "scarab", "housefly", "dragonfly", "gnat"]
             }
             // removes value from array 
             else if (theWord === array[i]) {
@@ -135,7 +131,6 @@ var game = {
             // reveals secret img, sound, etc.
             this.revealSecret();
             //preps game for reset
-            this.justWrite("playAgain", "play again!");
             this.resetTime = true;
             // prevents "losing" after winning on last guess
             won = true;
@@ -150,11 +145,10 @@ var game = {
         // write guess counter value
         this.justWrite("guessNum", guessCount);
         // check if out of guesses--> lose sequence (doesn't run if player wins with last guess)
-        if (guessCount === 0 && won===false) {
+        if (guessCount === 0 && won === false) {
             // show answer, alert user to loss, and prep for reset
             this.revealSecret();
             this.justWrite("banner", "you lose.");
-            this.justWrite("playAgain", "play again!");;
             this.resetTime = true;
             // return resetTime;
         }

@@ -97,9 +97,15 @@ main div:nth-child(2){
     margin-left: 2em;
 }
 .secondText{
-color: rgba(50, 200, 100, 0.75)
+background: inherit;
+color: rgba(50, 200, 100, 0.75);
 }
 
+.highlightText{
+background: rgb(50, 200, 100);
+color: black;
+width: fit-content;
+}
 /* elements to be javascripted */
 
 /* #winNum{} */
