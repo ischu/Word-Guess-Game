@@ -57,7 +57,7 @@ var game = {
         this.justWrite("playAgain", "play again!");
         instructions.setAttribute("class", "highlightText leftMarg")
         // reveals img
-        secretImg.setAttribute("src", "assets/images/" + theWord + ".jpg");
+        secretImg.src = ("assets/images/" + theWord + ".jpg");
         // plays sound
     },
     // selects a word from the array to be guessed
@@ -157,7 +157,22 @@ var game = {
 
 // changes the array the word is selected from
 function chooseArray(m) {
+    // selects chosen array from correct index number (n)
     Object.defineProperty(game, "n", { value: m });
+    game.resetGame(game.n);
+    // selects element with matching ID
+    for (i=0; i<game.arrayOf.length; i++){
+    cati = document.getElementById("category"+i);
+    // and highlights it as the chosen category
+    if(m===i){
+    cati.setAttribute("class", "selectedCategory");
+    }
+    // while resetting any other highlighted categories
+    else{
+    cati.setAttribute("class", "");
+    }
+    }
+
 };
 
 document.onkeyup = function (event) {

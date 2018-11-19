@@ -3,7 +3,6 @@ body{
     display: flex;
     flex-direction: column;
     font-family: 'ABeeZee', sans-serif;
-    
 }
 
 header{
@@ -21,7 +20,6 @@ header{
     justify-content: center;
 }
 header h1{
-    letter-spacing: .5em;
     line-height: 1.6;
     border: black dashed 1px;
     margin: 2% 20%;
@@ -29,15 +27,23 @@ header h1{
     background: rgb(50, 200, 100);
     color: black;
 }
+.hls{
+    letter-spacing: .5em;
+}
 header h2{
-    letter-spacing: .25em;
-    font-family: 'Kumar One', sans-serif;
+    
+    font-family: 'Russo One', sans-serif;
     font-weight: 100;
-    margin: auto, 0, initial, 0;
+    margin: initial 2px;
+    cursor: pointer;
+    padding: 1px;
+}
+.qls{
+    letter-spacing: .25em;
 }
 h2:hover{
-    background: rgb(50, 200, 100);
-    color: black;
+    border: rgb(50, 200, 100) solid 1px;
+    padding: 0px;
 }
 h2:active{
     color: white;
@@ -97,14 +103,22 @@ main div:nth-child(2){
     margin-left: 2em;
 }
 .secondText{
-background: inherit;
-color: rgba(50, 200, 100, 0.75);
+    background: inherit;
+    color: rgba(50, 200, 100, 0.75);
 }
 
 .highlightText{
-background: rgb(50, 200, 100);
-color: black;
-width: fit-content;
+    background: rgb(50, 200, 100);
+    color: black;
+    width: fit-content;
+    padding: 3px;
+}
+
+.selectedCategory {
+    background: rgb(50, 200, 100);
+    color: black;
+    border: black dashed 1px;
+    padding: 0px;
 }
 /* elements to be javascripted */
 
