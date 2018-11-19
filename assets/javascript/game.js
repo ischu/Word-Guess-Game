@@ -3,7 +3,8 @@
 var game = {
     winCount: 0,
     resetTime: false,
-    mammalArray : ["elephant",  "squirrel", "leopard", , "orangutan", "zebra", "gorilla",  "dolphin",  "donkey", "dog", "cat"],
+    // won: false,
+    mammalArray: ["elephant", "squirrel", "leopard", , "orangutan", "zebra", "gorilla", "dolphin", "donkey", "dog", "cat"],
     reptileArray: ["crocodile", "alligator", "python", "cobra", "tortoise", "iguana", "rattlesnake", "gecko", "chameleon", "skink"],
     birdArray: ["ostrich", "parrot", "peacock", "flamingo", "toucan", "penguin", "puffin", "oriole", "bobolink", "falcon"],
     bugArray: ["hornet", "termite", "ant", "bumblebee", "cricket", "grasshopper", "scarab", "housefly", "dragonfly", "gnat"],
@@ -12,7 +13,7 @@ var game = {
     // index number of array within arrayOf (default is animalArray)
     n: 0,
     // sets arrayOf to include all arrays
-    setArrayOf: function() {
+    setArrayOf: function () {
         this.arrayOf = [this.mammalArray, this.reptileArray, this.birdArray, this.bugArray];
         console.log(this.arrayOf, this.mammalArray, this.reptileArray, this.birdArray, this.bugArray);
         return this.arrayOf;
@@ -35,10 +36,12 @@ var game = {
         // resets guess counter
         this.setArrayOf();
         guessCount = 15;
+        // unsets "win-protector"
+        won = false;
         this.justWrite("guessNum", guessCount);
         // picks new word
         this.wordSelector(this.arrayOf[n]);
-            // console.log(this.arrayOf[n]);
+        // console.log(this.arrayOf[n]);
         // sets appropriate number of blanks
         this.blankSetter();
         // clears letterArray (guessed letters)
@@ -59,7 +62,7 @@ var game = {
         // var imgDiv = document.getElementById("imageDiv");
         // imgDiv.appendChild(<img/>);
         // do this every time
-        secretImg.setAttribute( "src", "assets/images/"+theWord+".jpg");
+        secretImg.setAttribute("src", "assets/images/" + theWord + ".jpg");
         // plays sound
     },
     // selects a word from the array to be guessed
@@ -69,10 +72,10 @@ var game = {
         // words only repeat after entire array has been spent
         for (i = 0; i < array.length; i++) {
             // resets arrays before empty
-            if (array.length===1){
-                this.animalArray=["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
-                "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
-                this.petArray=["dog", "cat", "bird"];
+            if (array.length === 1) {
+                this.animalArray = ["elephant", "ostrich", "squirrel", "leopard", "termite", "orangutan", "crocodile", "alligator",
+                    "zebra", "gorilla", "toucan", "dolphin", "peacock", "flamingo", "donkey", "hornet"];
+                this.petArray = ["dog", "cat", "bird"];
             }
             // removes value from array 
             else if (theWord === array[i]) {
@@ -129,11 +132,13 @@ var game = {
             console.log(this.winCount);
             // Sets banner to alert player of win
             this.justWrite("banner", "YOU WIN!!!");
-            // reveals secret img, sound, etc. (NOT YET FULLY IMPLEMENTED)
+            // reveals secret img, sound, etc.
             this.revealSecret();
             //preps game for reset
             this.justWrite("playAgain", "play again!");
             this.resetTime = true;
+            // prevents "losing" after winning on last guess
+            won = true;
             // return resetTime;
         }
     },
@@ -144,8 +149,8 @@ var game = {
         console.log(guessCount);
         // write guess counter value
         this.justWrite("guessNum", guessCount);
-        // check if out of guesses--> lose sequence
-        if (guessCount < 1) {
+        // check if out of guesses--> lose sequence (doesn't run if player wins with last guess)
+        if (guessCount === 0 && won===false) {
             // show answer, alert user to loss, and prep for reset
             this.revealSecret();
             this.justWrite("banner", "you lose.");
@@ -157,8 +162,8 @@ var game = {
 };
 
 // changes the array the word is selected from
-function chooseArray(m){
-Object.defineProperty(game, "n", {value: m});
+function chooseArray(m) {
+    Object.defineProperty(game, "n", { value: m });
 };
 
 document.onkeyup = function (event) {
@@ -173,17 +178,18 @@ document.onkeyup = function (event) {
 
             // check that letter has not been guessed yet
             if (!letterArray.includes(theLetter.toUpperCase())) {
+
                 // pushes upper-case version of letter to guessed letters array
                 letterArray.push(theLetter.toUpperCase());
                 console.log(letterArray);
                 // adds letter to guessed letters section with spacing and no commas
                 game.spacedWrite("guessLett", letterArray);
-                // reduces guess counter
-                game.guessCounter();
                 // checks if letter is in word and places it in corresponding blank if it is
                 game.letterReplace();
                 // checks if player has won game and intiates win sequence if yes
                 game.winTime();
+                // reduces guess counter
+                game.guessCounter();
                 // log and return theLetter
                 console.log(theLetter);
                 return theLetter
