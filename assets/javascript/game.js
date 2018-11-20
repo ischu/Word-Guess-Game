@@ -3,23 +3,39 @@
 var game = {
     winCount: 0,
     resetTime: false,
-    // won: false,
     mammalArray: ["elephant", "squirrel", "leopard", "orangutan", "zebra", "gorilla", "dolphin", "donkey", "dog", "cat"],
     reptileArray: ["crocodile", "alligator", "python", "cobra", "tortoise", "iguana", "rattlesnake", "gecko", "chameleon", "skink"],
     birdArray: ["ostrich", "parrot", "peacock", "flamingo", "toucan", "penguin", "puffin", "oriole", "bobolink", "falcon"],
     bugArray: ["hornet", "termite", "ant", "bumblebee", "cricket", "grasshopper", "scarab", "housefly", "dragonfly", "mosquito"],
-    // array of all "catagory" arrays
+    // array of all "category" arrays
     arrayOf: [],
     // index number of array within arrayOf (default is animalArray)
     n: 0,
-
     // sets arrayOf to include all arrays
     setArrayOf: function () {
         this.arrayOf = [this.mammalArray, this.reptileArray, this.birdArray, this.bugArray];
         // console.log(this.arrayOf, this.mammalArray, this.reptileArray, this.birdArray, this.bugArray);
         return this.arrayOf;
     },
-    // functions for document...ById stuff
+    // changes the array the word is selected from
+    chooseArray: function (categoryNumber) {
+        // sets the category by changing the index number of arrayOf (n)
+        this.n = categoryNumber;
+        this.resetGame(this.n);
+        // selects category text with matching ID
+        for (i = 0; i < this.arrayOf.length; i++) {
+            categoryi = document.getElementById("category" + i);
+            // and highlights it as the chosen category
+            if (categoryNumber === i) {
+                categoryi.setAttribute("class", "selectedCategory");
+            }
+            // while resetting any other highlighted categories
+            else {
+                categoryi.setAttribute("class", "");
+            }
+        }
+    },
+    // functions for document.getElementById stuff
     spacedWrite: function (ID, text) {
         document.getElementById(ID).textContent = text.toString().replace(/,/g, " ");
     },
@@ -98,7 +114,7 @@ var game = {
         }
         // writes blankSet on screen as string with spaces instead of commas
         this.spacedWrite("secretWord", blankSet);
-        console.log(blankSet);
+        // console.log(blankSet);
         return blankSet;
     },
     // replaces blanks with letters when player guesses correctly
@@ -154,27 +170,6 @@ var game = {
             // return resetTime;
         }
     },
-    // changes the array the word is selected from
-    chooseArray: function (categoryNumber) {
-        // sets the category by changing the index number of arrayOf (n)
-        this.n = categoryNumber;
-        this.resetGame(this.n);
-        // selects category text with matching ID
-        for (i = 0; i < this.arrayOf.length; i++) {
-            categoryi = document.getElementById("category" + i);
-            // and highlights it as the chosen category
-            if (categoryNumber === i) {
-                categoryi.setAttribute("class", "selectedCategory");
-            }
-            // while resetting any other highlighted categories
-            else {
-                categoryi.setAttribute("class", "");
-            }
-        }
-    },
-
-
-
 };
 
 document.onkeyup = function (event) {
@@ -202,8 +197,8 @@ document.onkeyup = function (event) {
                 // reduces guess counter
                 game.guessCounter();
                 // log and return theLetter
-                console.log(theLetter);
-                return theLetter
+                // console.log(theLetter);
+                // return theLetter
             }
             // if letter has been guessed- obnoxious alert!
             else {
@@ -211,9 +206,9 @@ document.onkeyup = function (event) {
             };
         }
         // if not a letter key- obnoxious alert!
-        else {
-            alert("PRESS A LETTER KEY!");
-        };
+        // else {
+        //     alert("PRESS A LETTER KEY!");
+        // };
     }
     // if resetting 
     else {
